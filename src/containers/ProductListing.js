@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setProducts } from "../redux/actions/productActions";
+import { setProducts, fetchProducts } from "../redux/actions/productActions";
 import ProductComponent from "./ProductComponent";
 import axios from "axios";
 
@@ -9,11 +9,8 @@ const ProductListing = () => {
     const dispatch = useDispatch();
 
     console.log(products);
+    //using promises
     // const fetchProducts =  () => {
-    //     // const response = await axios.get("/fakestoreapi.com/products")
-    //     //                             .catch((err) => {
-    //     //                                 console.log("Err", err);
-    //     //                             });
     //     let headers = new Headers();
     //     headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
     //      headers.append('Access-Control-Allow-Credentials', 'true');
@@ -24,17 +21,21 @@ const ProductListing = () => {
     //                                 );
     // };
 
-    const fetchProducts = async () => {
-        const response = await axios.get("https://fakestoreapi.com/products")
-                                    .catch((err) => {
-                                        console.log("Err", err);
-                                    });
-        console.log('response', response);
-        dispatch(setProducts(response.data));
-    }
+    // const fetchProducts = async () => {
+    //     const response = await axios.get("https://fakestoreapi.com/products")
+    //                                 .catch((err) => {
+    //                                     console.log("Err", err);
+    //                                 });
+    //     console.log('response', response);
+    //     dispatch(setProducts(response.data));
+    // }
+
+    // useEffect(() => {
+    //     fetchProducts(); 
+    // }, []);
 
     useEffect(() => {
-        fetchProducts(); 
+        dispatch(fetchProducts()); 
     }, []);
 
     return (
